@@ -21,7 +21,7 @@ pipeline {
         stage('Packaging/Pushing imagae') {
 
             steps {
-                withDockerRegistry(credentialsId: '80e3997e-b528-4c62-81c0-5822a03f71d1	', url: 'https://index.docker.io/v1/') {
+                withDockerRegistry(credentialsId: '80e3997e-b528-4c62-81c0-5822a03f71d1	', url: 'https://hub.docker.com') {
                     sh 'docker build -t tinlt/springboot .'
                     sh 'docker push tinlt/springboot'
                 }
