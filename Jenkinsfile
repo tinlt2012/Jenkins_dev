@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     tools {
+        git 'MyGit' // Đảm bảo rằng tên cấu hình Git trùng khớp với tên bạn đã đặt trong Global Tool Configuration
         maven 'my-maven' // Đảm bảo tên này khớp với cấu hình trong Jenkins
     }
 
@@ -57,7 +58,7 @@ pipeline {
                 sh 'docker image pull tinlt/springboot' // Cập nhật tên image nếu cần
                 sh 'docker container stop khalid-springboot || echo "this container does not exist"'
                 sh 'docker network create dev || echo "this network exists"'
-                
+
                 sh """
                     docker container run -d --rm --name khalid-springboot \
                     -p 8081:8080 \
