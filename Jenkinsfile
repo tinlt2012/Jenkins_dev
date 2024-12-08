@@ -10,7 +10,6 @@ pipeline {
     }
 
     stages {
-
         stage('Build with Maven') {
             steps {
                 sh 'mvn --version'
@@ -36,18 +35,18 @@ pipeline {
                 sh 'docker container stop khalid-mysql || echo "this container does not exist"'
                 sh 'docker volume rm khalid-mysql-data || echo "no volume"'
 
-                sh """
+                sh '''
                    docker run -d --name khalid-mysql \
                    --network dev \
                    -v khalid-mysql-data:/var/lib/mysql \
                    -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_LOGIN_PSW} \
                    -e MYSQL_DATABASE=db_example \
                    mysql:8.0
-                """
+                '''
                 sh 'sleep 20'
-                sh """
-                   docker exec -i khalid-mysql mysql --user=root --password=${MYSQL_ROOT_LOGIN_PSW} < script
-                """
+                sh '''
+                   docker exec -i khalid-mysql mysql --user=root --password=${MYSQL_ROOT_LOGIN_PSW} < script.sql
+                '''
             }
         }
 
@@ -58,12 +57,12 @@ pipeline {
                 sh 'docker container stop khalid-springboot || echo "this container does not exist"'
                 sh 'docker network create dev || echo "this network exists"'
 
-                sh """
+                sh '''
                     docker container run -d --rm --name khalid-springboot \
                     -p 8081:8080 \
                     --network dev \
                     tinlt/springboot // Cập nhật tên image nếu cần
-                """
+                '''
             }
         }
     }
