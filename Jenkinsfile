@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     tools {
-        git 'MyGit' // Đảm bảo rằng tên cấu hình Git trùng khớp với tên bạn đã đặt trong Global Tool Configuration
         maven 'my-maven' // Đảm bảo tên này khớp với cấu hình trong Jenkins
     }
 
